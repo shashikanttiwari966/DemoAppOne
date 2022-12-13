@@ -1,0 +1,50 @@
+<html>
+<div class="order_product">
+  <center>
+  	<button id="rzp-button1" class="btn btn-outline-dark btn-lg text-light">
+  		<i class="fas fa-money-bill"></i> Pay with Rozarpay
+    </button>
+    <button type="button" class="btn btn-outline-dark btn-lg text-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="fas fa-money-bill"></i> Stripe Charge
+    </button>
+    <a data-method="post" href="/stripe_payments?product_id=<%= @product.id%>" type="button" class="btn btn-outline-dark btn-lg text-light">
+        <i class="fas fa-money-bill"></i> Stripe Checkout
+    </a>
+  </center>
+
+  <!-- Modal -->
+  <%= render "order_products/stripe_payment"%>
+  </div>
+<script>
+  var options = {
+    "key": "<%= ENV['KEY_ID']%>", // Enter the Key ID generated from the Dashboard
+    "amount": "<%= @amount%>",
+    "currency": "INR",
+    "description": "Acme Corp",
+    "prefill":
+    {
+      "email": "<%= current_admin_user.email%>",
+      "contact": +919900000000,
+    },
+    "handler": function (response) {
+      alert(response.razorpay_payment_id);
+    },
+    "modal": {
+      "ondismiss": function () {
+        if (confirm("Are you sure, you want to close the form?")) {
+          txt = "You pressed OK!";
+          console.log("Checkout form closed by the user");
+        } else {
+          txt = "You pressed Cancel!";
+          console.log("Complete the Payment")
+        }
+      }
+    }
+  };
+  var rzp1 = new Razorpay(options);
+  document.getElementById('rzp-button1').onclick = function (e) {
+    rzp1.open();
+    e.preventDefault();
+  }
+</script>
+</html>

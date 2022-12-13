@@ -1,0 +1,54 @@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Product: <%= @product.name%></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container p-0">
+          <div class="card px-4">
+            <%= form_for @card_detail, :url => create_card_order_products_path(@card_detail) do |f|%>
+            <p class="h8 py-3">Payment Details</p>
+            <div class="row gx-3">
+              <div class="col-12">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Person Name</p>
+                    <%= f.text_field :email, class:"form-control mb-3 w-100", type:"text", value:"#{ current_admin_user.email}" %>
+                    <%= hidden_field_tag :product_id,"",value:"#{@product.id}"%>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Card Number</p>
+                    <%= f.text_field :card_number, class:"form-control mb-3 w-100", type:"text", placeholder:"1234 5678 4352 2678"%>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Expiry</p>
+                    <%= f.text_field :expiry,class:"form-control mb-3 w-100", type:"text", placeholder:"MM/YYYY" %>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">CVV/CVC</p>
+                    <%= f.text_field :cvv, class:"form-control mb-3 pt-2 w-100", type:"password", placeholder:"***", pattern:".{3}" %>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="">
+                  <%= f.submit "Pay ₹#{@amount}", class:"btn btn-primary mb-3 pl-5 w-100"%>
+                  <!-- <i class='fas fa-arrow-right'></i>    -->
+                </div>
+              </div>
+            </div>
+            <%end%>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

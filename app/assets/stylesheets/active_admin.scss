@@ -1,0 +1,90 @@
+// Sass variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+@import 'wigu/active_admin_theme';
+// Overriding any non-variable Sass must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+
+form fieldset.inputs ol > li label {
+    color: #151516;
+}
+$skinMainFirstColor: #A5A7AA!default;
+$skinMainSecondColor: #0066CC!default;
+$skinBorderWindowColor: #B8BABE!default;
+
+.flash_alert{
+  background-color: red !important;
+}
+
+a.member_link {
+  margin-right: 2px;
+  white-space: nowrap;
+  border-radius: 4px;
+  color: white !important;
+  text-decoration: none !important;
+  font-weight: 600;
+}
+
+.view_link{
+  background-color: #5ea3d3 !important;
+  border: none;
+  padding: 10px 15px;
+  border: 1px solid #479ed3;
+}
+
+.edit_link{
+  background: #09fb23e6;
+  border: 1px solid #09fb23e6;
+  padding: 10px 15px;
+}
+
+.delete_link{
+  background: red;
+  border: 1px solid red;
+  padding: 10px 10px;
+}
+
+#wrapper table.index_table td {
+  padding: 14px 12px 14px 12px;
+}
+
+.buy_now,.subscribe{
+  background: green;
+  color: white !important;
+  padding: 10px;
+  border: 1px solid green;
+  border-radius: 4px;
+  text-decoration: none !important;
+  font-weight: 600;
+}
+
+/*.subscribe{
+  border: 1px solid #479ed3;
+  text-decoration: none !important;
+  padding: 10px;
+  border-radius: 4px;
+  color: white !important;
+  background: #479ed3;
+  font-weight: 600;
+}*/
+
+.unsubscription {
+  border: 1px solid #d34747;
+  text-decoration: none !important;
+  padding: 10px;
+  border-radius: 4px;
+  color: white !important;
+  background: #d34747;
+  font-weight: 600;
+}
