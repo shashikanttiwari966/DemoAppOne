@@ -5,13 +5,14 @@ class UserMailer < ApplicationMailer
     @user = params[:user]
     if @user.image.attached? 
       object = @user.image
-      @filename = object.id.to_s + object.filename.extension_with_delimiter
-      if ActiveStorage::Blob.service.respond_to?(:path_for)
-        attachments.inline[@filename] = File.read(ActiveStorage::Blob.service.send(:path_for, object.key))
-      elsif ActiveStorage::Blob.service.respond_to?(:download)
-        attachments.inline[@filename] = object.image.download
-      end
+      # @filename = object.id.to_s + object.filename.extension_with_delimiter
+      # if ActiveStorage::Blob.service.respond_to?(:path_for)
+      #   attachments.inline[@filename] = File.read(ActiveStorage::Blob.service.send(:path_for, object.key))
+      # elsif ActiveStorage::Blob.service.respond_to?(:download)
+      #   attachments.inline[@filename] = object.image.download
+      # end
     end
+    Rails.application.config.action_mailer.asset_host = "http://localhost:3000"
     @password = params[:password]
     @url  = 'http://localhost:3000/admin/login'
     mail(to: @user.email, subject: 'Welcome to My Awesome Site')

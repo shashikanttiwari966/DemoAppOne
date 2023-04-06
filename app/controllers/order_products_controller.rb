@@ -1,11 +1,12 @@
 class OrderProductsController < ApplicationController
   def index
     @product = Product.find_by_id(params[:product_id])
-    if @product.stock == 0
+    if @product&.stock == 0
       return redirect_to admin_products_path, alert:"Currently products are not available."
     end
+    @quantity = params[:quantity] if params[:quantity].present?
     @card_detail = CardDetail.new
-    @amount = @product.price * 100
+    @amount = @product.price * 100 
   end
 
   def create

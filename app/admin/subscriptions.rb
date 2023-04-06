@@ -1,6 +1,7 @@
 ActiveAdmin.register Subscription do
 
   permit_params :admin_user_id, :subscription_id, :product_id, :subscribed_at, :unsubscribed_at, :status
+  menu parent: 'Stripe Payment', priority: 4
   config.filters = false
   
   index do

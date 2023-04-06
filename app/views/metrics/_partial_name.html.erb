@@ -1,0 +1,7 @@
+<%if toggel == "line_chart" %>
+  <%= line_chart Charge.all.group_by_day(:created_at).count, xmin: "2023-01-01", xmax: "2023-6-01", width: "500px", height: "200px" %> 
+<% elsif toggel == "pie_chart"%>
+  <%= pie_chart Charge.all.group(:amount).count, width: "500px", height: "200px" %>
+<% else %>
+  <%= area_chart AdminUser.all.group_by_minute(:created_at).maximum(:updated_at)%>
+<%end%>

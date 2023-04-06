@@ -60,9 +60,14 @@ gem 'devise'
 gem 'activeadmin'
 gem 'active_admin_role'
 gem 'active_admin_theme'
+gem 'activeadmin_addons'
 gem 'razorpay'
-# gem 'stripe'
 gem 'stripe-rails'
 gem 'activerecord-session_store'
 gem "letter_opener", group: :development
 gem 'net-smtp', require: false
+gem "best_in_place", git: "https://github.com/mmotherwell/best_in_place"
+gem "chartkick"
+gem "groupdate"
+gem "noticed"
+gem "cable_ready", "~> 4.5"

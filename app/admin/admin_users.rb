@@ -11,7 +11,7 @@ ActiveAdmin.register AdminUser do
     column :role
     column :image do |user|
       if user.image.present?
-        image_tag rails_storage_redirect_path(user.image), size:50
+        image_tag rails_storage_redirect_path(user.image)
       end
     end
     column :created_at

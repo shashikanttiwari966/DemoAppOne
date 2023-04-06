@@ -17,5 +17,10 @@ class Ability
     can :read, Plan
     can :read, Subscription
     can :read, Charge
+    can :read, Notification
+
+    can :read, Item
+    can :read, RozarpayPlan
+    can :read, RozarpaySubscription
   end
 end

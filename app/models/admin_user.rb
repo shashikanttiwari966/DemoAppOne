@@ -5,11 +5,24 @@ class AdminUser < ApplicationRecord
   devise :database_authenticatable, 
          :recoverable, :rememberable, :validatable
 
+  has_many :notifications, as: :recipient, dependent: :destroy
+
   has_many :subscriptions
   has_many :charges
   has_many :order_products
   has_many :products, through: :order_products
+  has_one :cart, dependent: :destroy
   has_one_attached :image
+
+  has_many :rozarpay_subscriptions
+
+  # after_update do
+  #   begin
+  #     UserMailer.with(user: self, password: self.password).welcome_email.deliver
+  #   rescue StandardError => e
+  #    puts e
+  #   end
+  # end
 
   after_create do
     customer = Razorpay::Customer.create({
@@ -23,7 +36,10 @@ class AdminUser < ApplicationRecord
     self.customer_stripe_id = stripe_customer.id
     self.customer_id = customer.id
     self.save
-
-    UserMailer.with(user: self, password: self.password).welcome_email.deliver_later
+    begin
+      UserMailer.with(user: self, password: self.password).welcome_email.deliver
+    rescue StandardError => e
+     puts e
+    end
   end
 end

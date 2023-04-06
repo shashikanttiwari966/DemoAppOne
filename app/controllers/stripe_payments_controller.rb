@@ -2,6 +2,7 @@ class StripePaymentsController < ApplicationController
 
 	def create
 		@product = Product.find_by_id(params[:product_id])
+    return redirect_to admin_products_path, alert:"Products are not available" if @product.stock.eql?(0)
     if current_admin_user.customer_stripe_id.present?
       begin
         session = Stripe::Checkout::Session.create({
@@ -11,7 +12,7 @@ class StripePaymentsController < ApplicationController
             amount: @product.price * 100,
             currency: "inr",
             # price: @product.price_id,
-            quantity: 1,
+            quantity: params[:quantity].present? ? params[:quantity] : 1 ,
           }],
           mode: 'payment',
           customer: current_admin_user.customer_stripe_id,
@@ -103,14 +104,18 @@ class StripePaymentsController < ApplicationController
 	def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @product = Product.find_by_id(params[:product_id]) if params[:product_id].present?
+    quantity = (@session.amount_total/100)/@product.price
     if subscription?
       created_at = Time.at(@session.created)
       current_admin_user.subscriptions.create(subscription_id: @session.subscription, product_id: @session.client_reference_id, status: @session.status, subscribed_at: created_at)
       return redirect_to admin_subscriptions_path, notice:"Subscription done!"
     else
-      current_admin_user.charges.create(product_id: @product.id, amount: @product.price, status: @session.status, stripe_charge_id: @session.payment_intent)
-      current_stock = @product.stock - 1
+      # current_admin_user.notifications.create()
+      current_admin_user.charges.create(product_id: @product.id, amount: ((@session.amount_total)/100), status: @session.status, stripe_charge_id: @session.payment_intent)
+      current_stock = @product.stock - quantity
       @product.update(stock: current_stock)
+      @line_item = LineItem.find_by(product_id: @product.id)
+      @line_item.destroy
       return redirect_to admin_charges_path, notice:"Payment Successfull!"
     end
 	end

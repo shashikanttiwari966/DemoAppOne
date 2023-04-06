@@ -17,6 +17,7 @@ ActiveAdmin.setup do |config|
   # Note: Aim for an image that's 21px high so it fits in the header.
   #
   # config.site_title_image = "logo.png"
+  config.site_title_image = ->(view) { current_admin_user.image.attached? ? current_admin_user.image : "user1.png"}
 
   # == Default Namespace
   #
@@ -192,7 +193,7 @@ ActiveAdmin.setup do |config|
   # Breadcrumbs are enabled by default. You can customize them for individual
   # resources or you can disable them globally from here.
   #
-  # config.breadcrumb = false
+  config.breadcrumb = true
 
   # == Create Another Checkbox
   #
@@ -230,12 +231,22 @@ ActiveAdmin.setup do |config|
   #
   # To change the default utility navigation to show a link to your website & a logout btn
   #
-  #   config.namespace :admin do |admin|
-  #     admin.build_menu :utility_navigation do |menu|
-  #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
-  #       admin.add_logout_button_to_menu menu
-  #     end
-  #   end
+    config.namespace :admin do |admin|
+      # admin.build_menu :utility_navigation do |menu|
+      #   menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
+      #   admin.add_logout_button_to_menu menu
+      # end
+      admin.build_menu do |menu|
+        menu.add  :label  => proc{ display_name current_admin_user.cart.line_items.count },
+                  :url    =>  proc{  "#{ENV['BASE_URL']}/carts/show_cart" },
+                  :id     => 'cart',
+                  :if     => proc{ current_active_admin_user? }
+        menu.add :label  => proc{ display_name current_admin_user.notifications.where(read_at: nil).count },
+                  :url    =>  proc{  "#{ENV['BASE_URL']}/notifications/index" },
+                  :id     => 'notification',
+                  :if     => proc{ current_active_admin_user? }
+      end
+    end
   #
   # If you wanted to add a static menu item to the default menu provided:
   #

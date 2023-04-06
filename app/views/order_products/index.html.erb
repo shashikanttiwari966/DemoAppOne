@@ -7,7 +7,7 @@
     <button type="button" class="btn btn-outline-dark btn-lg text-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <i class="fas fa-money-bill"></i> Stripe Charge
     </button>
-    <a data-method="post" href="/stripe_payments?product_id=<%= @product.id%>" type="button" class="btn btn-outline-dark btn-lg text-light">
+    <a data-method="post" href="/stripe_payments?product_id=<%= @product.id%>&quantity=<%= @quantity %>" type="button" class="btn btn-outline-dark btn-lg text-light">
         <i class="fas fa-money-bill"></i> Stripe Checkout
     </a>
   </center>

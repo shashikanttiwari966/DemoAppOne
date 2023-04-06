@@ -1,3 +1,4 @@
+@import 'activeadmin_addons/all';
 // Sass variable overrides must be declared before loading up Active Admin's styles.
 //
 // To view the variables that Active Admin provides, take a look at
@@ -8,20 +9,152 @@
 // $sidebar-width: 242px;
 
 // Active Admin's got SASS!
-@import "active_admin/mixins";
-@import "active_admin/base";
-@import 'wigu/active_admin_theme';
-// Overriding any non-variable Sass must be done after the fact.
-// For example, to change the default status-tag color:
-//
-//   .status_tag { background: #6090DB; }
+@import "active_material/src/stylesheets/active_material.scss";
+@media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }
+// Customization
+@import 'active_admin/variables/colors';
+@import 'active_admin/variables/fonts';
+@import 'activeadmin_addons/material';
 
-form fieldset.inputs ol > li label {
+/*@import "active_admin/mixins";
+@import "active_admin/base";
+@import 'wigu/active_admin_theme';*/
+
+/*form fieldset.inputs ol > li label {
     color: #151516;
 }
 $skinMainFirstColor: #A5A7AA!default;
 $skinMainSecondColor: #0066CC!default;
-$skinBorderWindowColor: #B8BABE!default;
+$skinBorderWindowColor: #B8BABE!default;*/
+
+$refunded-color: #FF9900;
+$complete-color: #08A510;
+
+.status_tag {
+  &.refunded { background: $refunded-color; }
+  &.complete { background: $complete-color; }
+}
+
+.index_table td.col-actions a, .panel_contents table td.col-actions a {
+  padding: 10px 10px;
+}
+
+#dialog_confirm{
+  position: absolute;
+  top: 35px;
+  right: 23px;
+  z-index: 99;
+}
+
+.index_table td img, .panel_contents table td img {
+    display: block;
+    height: auto;
+    max-width: 180px;
+    width: 100%;
+    border: 3px solid #a7b2c5;
+    border-radius: 10px;
+}
+
+.charge-panel{
+  display: inline-block;
+  margin: 0px 35px;
+}
+
+.custom-class{
+  padding: 15px;
+}
+
+.plan_image{
+  width: 80px !important;
+  height: 80px !important;
+}
+
+#cart{
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 100px;
+  background:url('cart_icon.png') no-repeat;
+  background-size: 40px;
+}
+
+#cart a{
+  background-color: #b3261e;
+  background-clip: padding-box;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: .6875rem;
+  margin: 0;
+  padding: 0px 3px; 
+  text-shadow: none;
+  display: inline;
+  border-radius: 50%;
+}
+
+.notification-list{
+  position: absolute;
+  width: 355px;
+  background: #e1ebf1d4;
+  top: 40px;
+  right: -137px;
+  padding: 0px 11px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 12px #9eb2b7;
+}
+
+.show{
+  display: block;
+}
+
+.hide{
+  display: none;
+}
+
+#notification{
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 160px;
+  background:url('notification.png') no-repeat;
+  background-size: 35px;
+}
+
+#notification a{
+  background-color: #b3261e;
+  background-clip: padding-box;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: .6875rem;
+  margin: 20px;
+  padding: 0px 3px; 
+  text-shadow: none;
+  display: inline;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#site_title_image{
+  border-radius: 50%;
+  background-size: 40px;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  position: absolute;
+  z-index: 40;
+  border: 3px solid gray;
+  box-shadow: 1px 1px 5px white;
+  top: 50%;
+  right: 16px;
+
+}
 
 .flash_alert{
   background-color: red !important;

@@ -1,0 +1,71 @@
+// Place all the styles related to the Carts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.fa-trash{
+  color: red;
+}
+
+.card-show input[type="submit"]{
+  position: absolute;
+  right: 30px;
+}
+  .card-show{
+    margin: 0rem 2rem;
+    text-align: center;
+    border-bottom: 3px solid #dfd7d757;
+  }
+  .card-show-child{
+    display: inline-block;
+    padding: 1rem 1rem;
+  }
+  .fa-common{
+    padding: 0px 10px;
+    margin: 10px;
+    display: block;
+    /*border: 1px solid #ddd1d1;
+    border-radius: 50%;*/
+  }
+  .card-parent {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 1rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+  }
+  .card-child {
+    display: inline-block;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+  }
+  img{
+    height: 100px;
+  }
+  .svg_icon{
+    position: absolute;
+    left: 70px;
+    top: 20px;
+    color: #0fd0f1;
+  }
+
+.card-child-action{
+  display: -webkit-inline-box;
+  padding: 15px;
+}
+.item-quantity{
+  box-sizing: border-box;
+  padding: 0px 26px;
+  line-height: 2.2;
+  border-top: 2px solid #787474;
+  border-bottom: 2px solid #787474;
+}
+
+.trash-button{
+  position: absolute;
+  right: 385px;
+}
+.trash-button button{
+  border: none;
+  background: white;
+  font-size: 20px;
+}

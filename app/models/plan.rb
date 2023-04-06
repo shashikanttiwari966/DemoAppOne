@@ -1,5 +1,6 @@
 class Plan < ApplicationRecord
 	enum duration: [:day, :week, :month, :year]
+	has_one_attached :image
 
 	after_create do
 		plan = Stripe::Price.create(

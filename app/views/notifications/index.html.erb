@@ -1,0 +1,76 @@
+<h1 style="display: inline-block; font-weight: 600;">Notifications</h1>
+<button type="button" class="close">
+  <span aria-hidden="true">&times;</span>
+</button>
+<main>
+  <div class="notification-container">
+    <% @notifications.each do |notification| %>
+      <% instance = notification.to_notification %>
+        <p class="notification_new <% notification.read_at.present? ? 'read' : 'unread' %>"> 
+          <span class="notification-left"><%= notification.message %>
+          </span>
+          <span class="notification-right">
+            <span style="float: right;">
+              <small><i><%= notification_time(notification)%></i></small>
+              <button onclick="location.href='<%= ENV['BASE_URL']%>/notifications/<%= notification.id %>'" type="button" class="notification-view">view</button>
+            </span>
+          </span>
+        </p> 
+    <% end %>
+  </div>
+</main>
+
+<script>
+  $(".close").click( function(){
+    $(".notification-list").addClass('hide')
+    location.reload(true)
+  });
+</script>
+
+
+<style type="text/css">
+  .close{
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 35px;
+    margin-left: 220px;
+    cursor: pointer;
+  }
+
+  small{
+    opacity: 0.7;
+  }
+
+  .notification-view{
+    color: white;
+    font-weight: 600;
+    border: 2px solid;
+    border-radius: 5px;
+    background: #1398f5;
+  }
+
+  .read{
+    background: #919fa59e;
+  }
+
+  .unread{
+    background: #1398f5;
+  }
+  .notification_new{
+    background: #bbdbe7 !important;
+    padding: 2px 10px !important;
+    height: 28px !important;
+    border-radius: 2px !important;
+  }
+
+  .notification-left{
+    width: 65%;
+    float: left;
+  }
+
+  .notification-right{
+    width: 35%;
+    float: right;
+  }
+</style>

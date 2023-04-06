@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_12_100259) do
+ActiveRecord::Schema.define(version: 2023_04_03_101109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,12 @@ ActiveRecord::Schema.define(version: 2022_12_12_100259) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.integer "admin_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "charges", force: :cascade do |t|
     t.string "stripe_charge_id"
     t.integer "product_id"
@@ -108,6 +114,37 @@ ActiveRecord::Schema.define(version: 2022_12_12_100259) do
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "amount"
+    t.string "currency"
+    t.string "item_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer "quantity", default: 1
+    t.integer "product_id"
+    t.integer "cart_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "message"
+    t.index ["read_at"], name: "index_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
   create_table "order_products", force: :cascade do |t|
@@ -140,6 +177,31 @@ ActiveRecord::Schema.define(version: 2022_12_12_100259) do
     t.integer "stock"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "product_type"
+  end
+
+  create_table "rozarpay_plans", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "amount"
+    t.string "currency"
+    t.integer "period"
+    t.string "plan_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rozarpay_subscriptions", force: :cascade do |t|
+    t.string "plan_id"
+    t.string "subscription_id"
+    t.datetime "start_at"
+    t.datetime "unsubscribe_at"
+    t.string "status"
+    t.integer "amount"
+    t.bigint "admin_user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_rozarpay_subscriptions_on_admin_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -177,5 +239,6 @@ ActiveRecord::Schema.define(version: 2022_12_12_100259) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "order_products", "admin_users"
   add_foreign_key "order_products", "products"
+  add_foreign_key "rozarpay_subscriptions", "admin_users"
   add_foreign_key "subscriptions", "admin_users"
 end

@@ -1,0 +1,18 @@
+$am-theme-primary: #42a5f5;
+
+/// A darker primary theme color for contrast when overlaying important items
+/// containers that are already treated with primary color.
+$am-theme-primary-700: #0077c2;
+
+/// Used for primary action button and components like switches or sliders.
+$am-theme-accent: #673ab7;
+
+/// The background color of the document.
+$am-theme-backdrop: #eeeeee;
+
+/// The background color of Material Design "paper" elements such as cards.
+/// And other elements that overlap content.
+$am-theme-paper: #F5F5F6;
+
+/// The color of tooling lines used to aid the eye when breaking down content.
+$am-theme-divider: darken($am-theme-backdrop, 2.5%);

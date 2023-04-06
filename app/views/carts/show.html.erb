@@ -1,0 +1,62 @@
+<div class="card-show">
+  <span class="svg_icon">
+    <%= link_to admin_products_path do%>
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+      </svg>
+    <%end%>
+  </span>
+  <h2 class="card-show-child">Cart show</h2>
+  <%= button_to "Empty cart(#{@cart.line_items.count})", cart_path(@current_cart),
+  method: :delete, data: {confirm: "Are you sure?"}, class:"card-show-child" %>
+  <h5 class="card-show-child">Sub total: <%= number_to_currency(@cart.sub_total, unit: "₹") %></h5>
+</div>
+
+<%unless @cart.line_items.present?%>
+  <div class="text-center p-2" style="background: #009688;">
+    <p class="fw-bold text-light">You are not added product on cart!</p>
+  </div>
+<%end%>
+
+<div class="row">
+  <% @cart.line_items.each do |line_item| %>
+  <div class="column">
+    <div class="card-parent">
+        <div class="card-child">
+          <%= image_tag(line_item.product.images.first) if line_item.product.images.attached?%><br>
+        </div>
+        <div class="card-child">
+          Item: <%= line_item.product.name %><br>
+          Price: <%= number_to_currency(line_item.product.price, unit: "₹") %><br>
+          Quantity: <%= line_item.quantity %><br>
+          Total Price: <%= number_to_currency(line_item.total_price, unit: "₹") %>
+        </div>
+        <div class="card-child trash-button">
+            <%= button_to line_item_path(line_item), method: :delete do %>
+              <i class="fa fa-trash fa-common"></i>
+            <%end%>
+          </div>
+        <div class="card-child-action">
+          <div class="cart-action">
+            <%= button_to line_item_add_path(:id => line_item), method: :post do %>
+               <i class="fa fa-plus fa-common"></i>
+            <%end%>
+          </div>
+          <div class="cart-action item-quantity">
+            <%= line_item.quantity %>
+          </div>
+          <div class="cart-action">
+            <%= button_to line_item_reduce_path(:id => line_item), method: :post do %>
+              <i class="fa fa-minus fa-common"></i>
+            <%end%>
+          </div>
+          <div class="cart-action">
+            <%= button_to stripe_payments_path(product_id: line_item.product.id, quantity: line_item.quantity), method: :post do %>
+              <i class="fa fa-paypal fa-common"></i>
+            <%end%>
+          </div>
+        </div>
+    </div>
+  </div>
+  <% end %>
+</div>
