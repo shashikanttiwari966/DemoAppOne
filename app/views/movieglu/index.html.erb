@@ -1,0 +1,417 @@
+<div id="myVideo"></div>
+ 
+<div class="leftbox">
+  <div class="topnav">
+    <a href="#home"><img src="https://freeicons.io/laravel/public/uploads/icons/png/960503721551941710-256.png"  id="logo"></a>
+    <a href="#continue">Continue watching</a>
+    <a href="#featured">Featured</a>
+    <a href="#series">Series</a>
+    <a href="#originals">Originals</a> 
+  </div>  
+  <br><br><br>
+
+  <img src="https://seeklogo.com/images/N/netflix-n-logo-0F1ED3EBEB-seeklogo.com.png" id="netflix-logo"> 
+  <h id="h-main">Demo App Original</h>
+  <br><br>
+  <p id="item">Cambridge Analytica</p>
+  <p id="content">
+    Demo App is the home of amazing original programming that you can't find<br> anywhere else. Movies, TV shows, specials and more, it's all tailored <br>specifically to you.
+  </p><br>
+
+  <button id="myBtn">▷ Watch now</button>
+  <button id="myBtn">＋ Add to list</button>
+  <br><br><br><br><br><br>
+
+  <h id="continue">Continue watching with the Movies trailer</h>
+</div>
+
+<!-- <div class="rightbox">
+  <div id="pgsign">13+</div>
+</div> -->
+
+<div class="bottom-vids">
+  <% @films_now_showing["films"].each do |film|%>
+    <% trailer = MoviegluService.new.trailer(film["film_id"])%>
+    <video controls id="bottom-vids" poster="<%= trailer["trailers"]["high"][0]["trailer_image"]%>">
+      <source src="<%= trailer["trailers"]["high"][0]["trailer_image"]%>" type="video/mp4">
+    </video>
+  <%end%>
+
+  <!-- <video controls id="bottom-vids" poster="https://mediavideo.blastingnews.com/p/4/2018/06/13/2e91aee9-bb61-4bf3-9c26-19a24eab3f92.jpg">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://i.ytimg.com/vi/P-p2B4YFLJE/maxresdefault.jpg">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://canadiandad.com/wp-content/uploads/2015/08/Suits-Netflix.jpg">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://images.squarespace-cdn.com/content/v1/5b21eea1ee175919e0b351eb/1559221194370-R9YM34AVPDO2NHA5U0W8/ke17ZwdGBToddI8pDm48kL2RXeg1pfhKEUOVWeEY6-AUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcHqpiYMSyvrdP-0SAQ36MiUPx3rOM05vbnHz3QNpBg_-bLq9HngwVJFHVrh8wl9VZ/Dead-to-Me-poster.jpg?format=750w">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="http://beta.ems.ladbiblegroup.com/s3/content/808x455/e39c25575c0e92a5b6b798ce63d335f7.png">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://upload.wikimedia.org/wikipedia/en/thumb/c/c2/The_Society_%28TV_series%29_Title_Card.jpg/250px-The_Society_%28TV_series%29_Title_Card.jpg">
+    <source src="" type="video/mp4">
+  </video> -->
+</div>
+<br>
+
+<div class="featured">
+  <div class="featured-layer">
+    <br>
+    <h id="featured">Featured</h>
+    <div class="featured-vid">
+      <video controls width="600" height="500" poster="https://i2.wp.com/thoselondonchicks.com/wp-content/uploads/2017/07/netflix-glow-title-1070x600.png?fit=1070%2C600&ssl=1">
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="featured-text">
+      <p>
+        <b><i>Premise</b></i>
+        : In Los Angeles in 1985, Ruth Wilder, a struggling actress, auditions along with many other women in a fledgling professional wrestling promotion called the Gorgeous Ladies of Wrestling (GLOW). <br><br>
+        She is at odds with GLOW's director Sam Sylvia due to her tendency to overact. When Ruth's former best friend, retired soap opera actress Debbie Eagan, arrives at the ring, their confrontation promises to either make or break the show.
+      </p>
+    </div>
+  </div>
+</div>
+
+<br>
+<h id="series">Series</h>
+<div class="bottom-vids2">
+  <video controls id="bottom-vids" poster="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZgWOsP-qEY0kHxv412XQoA_WDpFU2gygyLyF3CEAMl0aIR3yx">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://www.heavenofhorror.com/wp-content/uploads/2018/12/you-season-1-netflix-review.jpg">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://hotcorn-cdn.s3.amazonaws.com/wp-content/uploads/sites/2/2019/07/25102524/the-hit-netflix-series-orange-is-the-new-black-will-come-to-an-end-after-season-7-social.jpg">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://news.newonnetflix.info/wp-content/uploads/2017/03/bates-motel.jpg">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShAIa9eqW52ohVMz064r8XutmScsIo-Y8cEzFzqCXR7Ce4ucAR
+  ">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://i0.wp.com/www.geektown.co.uk/wp-content/uploads/2019/02/the-order.jpg?resize=735%2C385&ssl=1">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://occ-0-1723-92.1.nflxso.net/dnm/api/v6/0DW6CdE4gYtYx8iy3aj8gs9WtXE/AAAABRHdYMOGnVDbUqbS2QJIXgcdDtVB1n7UJaUVjmJr09TxRH1rfu4F0A-1MXYHNggiD43gjKDuRsA8JVyWT1u90L2bSq42a1TuyFaYgCxM-z0s5q0NJy5P.jpg?r=f5d">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls id="bottom-vids" poster="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzafjq90VdpZy8YFeGJzEqHIckPHZpAvM4-uLizsnN27e0mHO9lA">
+    <source src="" type="video/mp4">
+  </video>
+
+</div>
+<br><br>
+<h id="originals">Netflix Originals</h>
+<br>
+<div class="tall">
+  <video controls poster="https://techcrunch.com/wp-content/uploads/2019/07/tgh.jpg?w=675" id="tall">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls poster="https://m.media-amazon.com/images/M/MV5BMDU4MGRjNWEtNTlhYS00ZTdlLTk5M2MtNmE5NDNkYWIyNTZkXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_.jpg" id="tall">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls poster="http://www.moneyaftergraduation.com/wp-content/uploads/2013/02/house-of-cards-final-poster.jpg" id="tall">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls poster="https://m.media-amazon.com/images/M/MV5BNTA2YTI5YjUtZWI4Zi00NWQ5LWFiYmEtOTBmNTUyNDAwNjllXkEyXkFqcGdeQXVyNjIzNzM4NzA@._V1_.jpg" id="tall">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls poster="https://images-na.ssl-images-amazon.com/images/I/41zHbk9ZzsL.jpg" id="tall">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls poster="https://m.media-amazon.com/images/M/MV5BMjAxOTA2Mjc3MF5BMl5BanBnXkFtZTgwMTMxMzIxNDM@._V1_.jpg" id="tall">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls poster="https://m.media-amazon.com/images/M/MV5BZmU1YmM2MTQtMDI2Zi00ZDNkLWExYWItMGU4NjA3NjA2MWU4XkEyXkFqcGdeQXVyNjU4MjE5Njk@._V1_.jpg" id="tall">
+    <source src="" type="video/mp4">
+  </video>
+
+  <video controls poster="https://m.media-amazon.com/images/M/MV5BMTY5OTkwNDkzOF5BMl5BanBnXkFtZTgwMDEyNzI1NzM@._V1_.jpg
+  " id="tall">
+    <source src="" type="video/mp4">
+  </video>
+</div>
+
+
+
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Oswald|Roboto&display=swap');
+body {
+ background-color: #2f2f2f;
+}
+html {
+ scroll-behavior: smooth;
+}
+.topnav {
+ overflow: hidden;
+ position: absolute; 
+ display: inline-block;
+ top:0;
+ left:0;
+ right:0;
+}
+.topnav a {
+ float: left; 
+ padding: 14px 16px;
+ text-align: center;
+ text-decoration: none;
+ color: lightgrey;
+ font-family: 'Roboto', sans-serif;
+ font-size: 0.8em;
+}
+.topnav a:hover {
+ color: white;
+}
+#logo {
+ height: 50px;
+ width: 50px;
+   margin-top: 130%;
+   left:0;
+}
+#myVideo {
+ 
+position: absolute;
+ right: 0;
+ bottom:0;
+ min-width: 100%;
+ min-height: 100%;
+ background-image:url('https://thumbs.gfycat.com/AffectionateInfiniteGuernseycow-size_restricted.gif'); 
+  background-repeat: no-repeat;
+  background-size: cover; 
+ 
+}
+.content {
+ position: absolute;
+ justify-content: left;
+ bottom: 0;
+ margin-right: 1em;
+ background: rgba( 0, 0, 0, 0.1);
+ color: #f1f1f1;
+ width: 200vh;
+ height: 200vh;
+ padding: 20px;
+ left:0;
+ display: inline-block;
+ border-bottom:1px solid white;
+}
+
+#h-main {
+ font-family: 'Oswald', sans-serif;
+ font-size: 1.3em;
+ margin-left: 0.5em;
+ text-decoration: overline;
+}
+
+h {
+ font-family: 'Oswald', sans-serif;
+ font-size: 1.3em;
+ margin-left: 0.5em;
+ margin-top:0.5em;
+position: relative;
+ color: white;
+}
+p {
+ font-family: 'Roboto', sans-serif;
+ font-size: 1em;
+ margin-left: auto;
+ margin-right: auto;
+ padding-left: 1.3em;
+ padding-right: 1.3em;
+ margin-top: 0.7em;
+}
+#item {
+
+ font-size: 1.5em;
+}
+
+#content {
+ font-size: 0.8em;
+ line-height: 1.5em;
+}
+#myBtn {
+ margin-left: 1em;
+ font-size: 18px;
+ font-style: bold;
+ padding: 10px;
+ border: none;
+ background-color: rgba(100,100,100,0.6);
+ color: white;
+ cursor: pointer;
+ position: relative;
+}
+#myBtn:hover {  
+ background-color: white;
+ color: black;
+}
+.leftbox {
+ height:95vh;
+ width: 99vh;
+ display: inline-block;
+color: #f1f1f1;
+ position: absolute;
+ top:0;
+}
+.rightbox {
+ height:200vh;
+ width: 50vh;
+ float: right;
+ top:0; 
+ right:0;
+ color: #f1f1f1;
+ justify-content: right;
+ display: inline-block;
+ position: absolute;
+}
+#pgsign {
+ height: 15px;
+ width: 50px;
+ border-left: 4px solid white;
+ background-color: rgba(100,100,100);
+ font-size: 0.8em;
+ float: right;
+ margin-right: 1em;
+ margin-top: 25em;
+ justify-content: right;
+ text-align: center;
+ padding: 5px;
+}
+#netflix-logo {
+ height: 50px;
+ width: 50px;
+ margin-top:0.5em;
+ margin-left:0.5em;
+ }
+#netflix-toplogo {
+ height: 30px;
+ width: 100px;
+ top:0;
+}
+.bottom-vids {
+ height:230px;
+ display: inline-block;
+ color: #f1f1f1;
+ position: relative;
+ left:0;
+ right:0;
+ margin-top:40%;
+ overflow-x: auto;
+ overflow-y: auto;
+ width: 100%;
+}
+#bottom-vids {
+ height:  230px;
+ width: 250px;
+ display: inline-block;
+ transition: transform .4s;
+}
+#bottom-vids:hover {
+ transform: scale(1.3);
+}
+::-webkit-scrollbar {
+ width: 10px;
+}
+::-webkit-scrollbar-track {
+ background: rgba(100,100,100,0.2);
+}
+::-webkit-scrollbar-thumb {
+ background: #141414;
+}
+::-webkit-scrollbar-thumb:hover {
+ background: #555;
+}
+a {
+ text-decoration: none;
+ color: rgba(100,100,100, 0.2);
+}
+.featured {
+ background-image: url('https://theplumlist.com/wp-content/uploads/2019/08/GLOW-season-3-on-Netflix.jpg');
+ background-repeat: no-repeat;
+ background-size: cover;
+ filter: blur(4px);
+ width: 100%;
+ height: 630px;
+ filter: grayscale(.7);
+}
+.featured-layer {
+ background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.8));
+ height: 630px;
+}
+.featured-vid {
+ float: left;
+ margin-left: 1em;
+ margin-top: 3em;
+ width: 600px;
+ position: absolute;
+ display: inline-block;
+ filter: none;
+}
+.featured-text {
+ position: absolute;
+ display: inline-block;
+ color: white;
+ font-size: 1em;
+ font-family: 'Lato';
+ float: right;
+ right:0;
+ padding-right: 2em;
+ margin-top: 5%;
+ justify-content: right;
+ width: 400px;
+ line-height: 1.7em;
+}
+
+.bottom-vids2 {
+ height:230px;
+ display: inline-block;
+ color: #f1f1f1;
+ position: relative;
+ left:0;
+ right:0;
+ overflow-x: auto;
+ overflow-y: auto;
+ width: 100%;
+}
+.tall {
+ position: absolute;
+ height: 500px;
+ width: 96%;
+ display: inline-block;
+ margin-left: 2.5em;
+ overflow-y: auto;
+}
+#tall {
+  transition: transform .4s;
+  height:550px;
+   width:300px;
+}
+#tall:hover {
+ transform: scale(1.2);
+}
+
+</style>

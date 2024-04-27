@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-ActiveAdmin.register_page "Dashboard" do
-  menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
+ActiveAdmin.register_page "Dashboard", class:"fas fa-edit" do
+  menu priority: 1, label: "<i class='fas fa-home'></i>Dashboard".html_safe
 
   content title: proc { I18n.t("active_admin.dashboard") } do
     div class: "blank_slate_container", id: "dashboard_default_message" do
@@ -12,46 +12,61 @@ ActiveAdmin.register_page "Dashboard" do
 
     div class: "cart_item_count", id:"#{current_admin_user.cart.line_items.count}" do 
     end
+  end
 
-    panel "Purches Product Charge", class:"charge-panel" do
-      div class: 'custom-class' do
-        @metric = Charge.all # whatever data you pass to chart
-        render partial: 'metrics/partial_name', locals: {metric: @metric, toggel: "line_chart"}
+  content do
+    panel "Some Sort Details Of Plans & Products", style:"padding: 20px;" do
+      columns do
+        column do
+          tabs do
+            tab "Latest Plan Info(3)", class:"admin_tabs" do
+              table_for Plan.last(3), { :sortable => true, :class => 'index_table'} do
+                column :name
+                column :duration
+                column :price
+                column :created_at
+              end
+            end
+          
+            tab "Latest Product Info(3)", class:"admin_tabs" do
+              table_for Product.last(3), { :sortable => true, :class => 'index_table'} do
+                column :name
+                column :price
+                column :stock
+                column :created_at
+              end
+            end
+          end
+        end
       end
     end
 
-    panel "Charges Amount On Pie Chart", class:"charge-panel" do
-      div class: 'custom-class' do
-        @metric = Charge.all # whatever data you pass to chart
-        render partial: 'metrics/partial_name', locals: {metric: @metric, toggel: "pie_chart"}
+    panel "Progress Chart Of Models", style:"text-align: center; padding: 20px;" do
+      columns do
+        column do
+          panel "Purches Product Charge", style:"text-align: center;" do
+            div do
+              line_chart Charge.all.group_by_day(:created_at).count, download: true
+            end
+          end
+        end
+
+        column do
+          panel "Count Charges Status", style:"text-align: center;" do
+            div do
+              pie_chart Charge.all.group(:status).count, download: true
+            end
+          end
+        end
+
+        column do
+          panel "Admin User Created At Monthly", style:"text-align: center;" do
+            div do
+              line_chart AdminUser.all.group_by_month(:created_at).count, download: true
+            end
+          end
+        end
       end
     end
-
-    panel "Admin User Area Chart" do
-      div class: 'custom-class-user' do
-        # whatever data you pass to chart
-        render partial: 'metrics/partial_name', locals: {toggel: ""}
-      end
-    end
-
-    # Here is an example of a simple dashboard with columns and panels.
-    #
-    # columns do
-    #   column do
-    #     panel "Recent Posts" do
-    #       ul do
-    #         Post.recent(5).map do |post|
-    #           li link_to(post.title, admin_post_path(post))
-    #         end
-    #       end
-    #     end
-    #   end
-
-    #   column do
-    #     panel "Info" do
-    #       para "Welcome to ActiveAdmin."
-    #     end
-    #   end
-    # end
-  end # content
+  end
 end

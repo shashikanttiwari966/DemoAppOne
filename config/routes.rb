@@ -1,4 +1,8 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  mount ActionCable.server => "/cable"
+
   root :to => "users#index"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -23,6 +27,7 @@ Rails.application.routes.draw do
   end
 
   #stripe payments
+  resources :orders
   resources :stripe_payments do
     collection do
       get :success
@@ -33,9 +38,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :theater_show_movie
+  resources :movieglu
+
   resources :users
   get 'notifications/index'
-  get 'notifications/:id' => "notifications#show"
+  get 'notifications/:id' => "notifications#show", as:"notification"
 
   post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
   post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"

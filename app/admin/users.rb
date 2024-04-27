@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-
+   menu priority: 10, label: "<i class='fas fa-users'></i> User".html_safe
   permit_params :email, :password, :first_name, :last_name, :status
   scope :pending, :default => true do |users|
     users.where(:status => 'pending')

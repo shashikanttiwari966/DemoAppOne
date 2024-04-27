@@ -1,7 +1,7 @@
 ActiveAdmin.register RozarpaySubscription do
 
   permit_params :plan_id, :subscription_id, :start_at, :unsubscribe_at, :status, :amount, :admin_user_id
-  menu parent: 'Rozarpay Payment', priority: 3
+  menu false #parent: 'Rozarpay Payment', priority: 3
   config.filters = false
   
   index do

@@ -2,6 +2,18 @@ class Plan < ApplicationRecord
 	enum duration: [:day, :week, :month, :year]
 	has_one_attached :image
 
+	# scope :created_at_gteq, ->  (data){
+  #   self.where('id = ?', data)
+  # }
+  
+  # scope :created_at_lteq_datetime, -> {
+  #   self.where('created_at <= ?', Time.now.end_of_day)
+  # }
+
+  def self.ransackable_scopes(auth_object = nil)
+    [:created_at_gteq_datetime]
+  end
+
 	after_create do
 		plan = Stripe::Price.create(
 				product_data:{

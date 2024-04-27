@@ -1,0 +1,3 @@
+class ProductSize < ApplicationRecord
+
+end

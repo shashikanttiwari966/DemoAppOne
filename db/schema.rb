@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_03_101109) do
+ActiveRecord::Schema.define(version: 2023_06_17_082049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,12 +106,25 @@ ActiveRecord::Schema.define(version: 2023_04_03_101109) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "charges", force: :cascade do |t|
     t.string "stripe_charge_id"
     t.integer "product_id"
     t.integer "admin_user_id"
     t.integer "amount"
     t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer "admin_user_id"
+    t.integer "friend_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -130,6 +143,15 @@ ActiveRecord::Schema.define(version: 2023_04_03_101109) do
     t.integer "quantity", default: 1
     t.integer "product_id"
     t.integer "cart_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "conversation_id"
+    t.integer "admin_user_id"
+    t.integer "receiver_id"
+    t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -158,6 +180,21 @@ ActiveRecord::Schema.define(version: 2023_04_03_101109) do
     t.index ["product_id"], name: "index_order_products_on_product_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "admin_user_id", null: false
+    t.integer "status"
+    t.integer "payment_mode"
+    t.datetime "expected_delivery"
+    t.string "order_track_id"
+    t.text "address"
+    t.integer "pin_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_orders_on_admin_user_id"
+    t.index ["product_id"], name: "index_orders_on_product_id"
+  end
+
   create_table "plans", force: :cascade do |t|
     t.string "name"
     t.string "plan_id"
@@ -166,6 +203,30 @@ ActiveRecord::Schema.define(version: 2023_04_03_101109) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "product_colors", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_product_colors_on_product_id"
+  end
+
+  create_table "product_sizes", force: :cascade do |t|
+    t.string "size"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "product_type"
+  end
+
+  create_table "product_sizings", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "product_size_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_product_sizings_on_product_id"
+    t.index ["product_size_id"], name: "index_product_sizings_on_product_size_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -178,6 +239,8 @@ ActiveRecord::Schema.define(version: 2023_04_03_101109) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "product_type"
+    t.integer "category_id"
+    t.integer "discount"
   end
 
   create_table "rozarpay_plans", force: :cascade do |t|
@@ -213,6 +276,15 @@ ActiveRecord::Schema.define(version: 2023_04_03_101109) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
+  create_table "shipments", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.integer "status"
+    t.string "place"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_shipments_on_order_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.bigint "admin_user_id", null: false
     t.string "subscription_id"
@@ -239,6 +311,12 @@ ActiveRecord::Schema.define(version: 2023_04_03_101109) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "order_products", "admin_users"
   add_foreign_key "order_products", "products"
+  add_foreign_key "orders", "admin_users"
+  add_foreign_key "orders", "products"
+  add_foreign_key "product_colors", "products"
+  add_foreign_key "product_sizings", "product_sizes"
+  add_foreign_key "product_sizings", "products"
   add_foreign_key "rozarpay_subscriptions", "admin_users"
+  add_foreign_key "shipments", "orders"
   add_foreign_key "subscriptions", "admin_users"
 end

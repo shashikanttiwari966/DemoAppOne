@@ -1,18 +1,202 @@
-<div class="notification-show">
-    <h1>Example Domain</h1>
-    <p>This domain is for use in illustrative examples in documents. You may use this
-    domain in literature without prior coordination or asking for permission.</p>
-    <p><a href="https://www.iana.org/domains/example">More information...</a></p>
+<div class="container"> 
+  <div class="row m-0"> 
+    <div class="col-md-12 col-12"> 
+      <div class="row"> 
+        <div class="col-12 mb-4"> 
+          <div class="row box-right"> 
+            <div class="col-md-8 ps-0 "> 
+              <p class="ps-3 textmuted fw-bold h6 mb-4">
+                <%= link_to 'DOWNLOAD PDF', notification_path(@notification, format: :pdf) %>
+              </p>
+              <p class="ps-3 textmuted fw-bold h6 mb-0">TOTAL AMOUNT</p> 
+              <p class="h1 fw-bold d-flex"> 
+                <span class=" fas fa-dollar-sign textmuted pe-1 h6 align-text-top mt-1">
+                </span>
+                <%= @notification&.params[:params].present? ? @notification&.params[:params][0][:price] : 0 %> 
+              </p>
+              </div> <div class="col-md-4"> 
+                <p class="p-blue" style="text-align: center;"> 
+                  <!-- <span class="fas fa-circle pe-2"></span> -->
+                  Scan QR for Details.
+                </p> 
+                  <p class="fw-bold mb-3">
+
+                    <img src= <%= @png.to_s %> alt="Red dot" style="width: 170px;height: 170px;"/>
+                  </p>  
+                </div> 
+              </div> 
+            </div>
+            <div class="col-12 px-0"> 
+              <div class="box-right"> 
+                <div class="d-flex mb-2"> 
+                  <p class="fw-bold"><%= @notification.params[:message]%></p> 
+                  <p class="ms-auto textmuted">
+                    <span class="fas fa-times"></span>
+                  </p> 
+                </div> 
+                <div class="d-flex mb-2">
+                  <!-- <p class="ms-auto bg btn btn-primary p-blue h8">
+                    <span class="far fa-clone pe-2"></span>COPY PAYMENT LINK 
+                  </p>  -->
+                </div> 
+                <div class="row"> 
+                  <div class="col-12 mb-2"> 
+                    <p class="textmuted h8">Plan / Product</p> 
+                    <p class="mb-2"><%= @notification&.params[:params].present? ? @notification&.params[:params][0][:name] : nil %></p> 
+                  </div> 
+                  <div class="col-6"> 
+                    <p class="textmuted h8">Payment Date</p> 
+                    <p class="mb-3">
+                      <%= @notification&.params[:params].present? ? @notification&.params[:params][0][:created_at].strftime("%B %d, %y") : nil %>
+                    </p> 
+                  </div> 
+                  <div class="col-6"> 
+                    <p class="textmuted h8">Due on</p> 
+                    <p class="mb-3">Oct 25, 2020</p> 
+                  </div> 
+                </div> 
+              </div> 
+            </div> 
+          </div> 
+        </div> 
+      </div>
+    </div> 
+  </div> 
 </div>
-
-
 <style type="text/css">
-  .notification-show{
-    width: 600px;
-    margin: 5em auto;
-    padding: 2em;
-    background-color: #fdfdff;
-    border-radius: 0.5em;
-    box-shadow: 2px 3px 7px 2px rgb(0 0 0 / 2%);
-  }
+p {
+    margin: 0
+}
+
+.container {
+    max-width: 700px;
+    margin: 30px auto;
+    background-color: #e8eaf6;
+    padding: 35px !important;
+    height: 500px !important;
+    border-radius: 18px;
+}
+
+.box-right {
+    padding: 22px 25px 0px 25px;
+    background-color: white;
+    border-radius: 15px
+}
+
+.box-left {
+    padding: 20px 20px;
+    background-color: white;
+    border-radius: 15px
+}
+
+.textmuted {
+    color: #7a7a7a
+}
+
+.bg-green {
+    background-color: #d4f8f2;
+    color: #06e67a;
+    padding: 3px 0;
+    display: inline;
+    border-radius: 25px;
+    font-size: 11px
+}
+
+.p-blue {
+    font-size: 14px;
+    color: #1976d2
+}
+
+.fas.fa-circle {
+    font-size: 12px
+}
+
+.p-org {
+    font-size: 14px;
+    color: #fbc02d
+}
+
+.h7 {
+    font-size: 15px
+}
+
+.h8 {
+    font-size: 12px
+}
+
+.h9 {
+    font-size: 10px
+}
+
+.bg-blue {
+    background-color: #dfe9fc9c;
+    border-radius: 5px
+}
+
+.form-control {
+    box-shadow: none !important
+}
+
+.card input::placeholder {
+    font-size: 14px
+}
+
+::placeholder {
+    font-size: 14px
+}
+
+input.card {
+    position: relative
+}
+
+.far.fa-credit-card {
+    position: absolute;
+    top: 10px;
+    padding: 0 15px
+}
+
+.fas,
+.far {
+    cursor: pointer
+}
+
+.cursor {
+    cursor: pointer
+}
+
+.btn.btn-primary {
+    box-shadow: none;
+    height: 40px;
+    padding: 11px
+}
+
+.bg.btn.btn-primary {
+    background-color: transparent;
+    border: none;
+    color: #1976d2
+}
+
+.bg.btn.btn-primary:hover {
+    color: #539ee9
+}
+
+.fw-bold {
+    padding: 0px !important;
+}
+
+@media(max-width:320px) {
+    .h8 {
+        font-size: 11px
+    }
+
+    .h7 {
+        font-size: 13px
+    }
+
+    ::placeholder {
+        font-size: 10px
+    }
+}
+
+
 </style>

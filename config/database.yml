@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 #
 development:
- database: demoapp
+ database: demoappone
  adapter: postgresql
  username: postgres
  password: 12345678

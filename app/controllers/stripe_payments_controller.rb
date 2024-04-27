@@ -68,7 +68,7 @@ class StripePaymentsController < ApplicationController
           mode: 'subscription',
           customer: current_admin_user.customer_stripe_id,
           client_reference_id: stripe_plan.product,
-          success_url: success_stripe_payments_url + "?session_id={CHECKOUT_SESSION_ID}",
+          success_url: success_stripe_payments_url(id: plan.id) + "&&session_id={CHECKOUT_SESSION_ID}",
           cancel_url: cancel_stripe_payments_url(charge_id: plan.id),
         })
         return redirect_to session.url
@@ -104,19 +104,21 @@ class StripePaymentsController < ApplicationController
 	def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @product = Product.find_by_id(params[:product_id]) if params[:product_id].present?
-    quantity = (@session.amount_total/100)/@product.price
+    @plan = Plan.find_by_id(params[:id]) if params[:id].present?
+    quantity = (@session.amount_total/100)/@product.price if params[:product_id].present?
     if subscription?
+      create_notification(subscription?)
       created_at = Time.at(@session.created)
       current_admin_user.subscriptions.create(subscription_id: @session.subscription, product_id: @session.client_reference_id, status: @session.status, subscribed_at: created_at)
-      return redirect_to admin_subscriptions_path, notice:"Subscription done!"
+      redirect_to(admin_subscriptions_path, notice:"Subscription done!")
     else
-      # current_admin_user.notifications.create()
+      create_notification
       current_admin_user.charges.create(product_id: @product.id, amount: ((@session.amount_total)/100), status: @session.status, stripe_charge_id: @session.payment_intent)
       current_stock = @product.stock - quantity
       @product.update(stock: current_stock)
       @line_item = LineItem.find_by(product_id: @product.id)
       @line_item.destroy
-      return redirect_to admin_charges_path, notice:"Payment Successfull!"
+      redirect_to admin_charges_path, notice:"Payment Successfull!"
     end
 	end
 
@@ -125,6 +127,13 @@ class StripePaymentsController < ApplicationController
 	end
 
   private
+
+  def create_notification(subscription = nil)
+    UserNotification.with(
+        message: "You have pay #{((@session.amount_total)/100)} for #{subscription.present? ? @plan.name : @product.name}", 
+        params: [subscription.present? ? @plan: @product]
+    ).deliver_later(current_admin_user)
+  end
 
   def check_subscription(stripe_plan)
     current_admin_user.subscriptions.find_by(status:"complete", product_id: stripe_plan.product)

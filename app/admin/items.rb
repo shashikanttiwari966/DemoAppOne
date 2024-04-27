@@ -1,6 +1,6 @@
 ActiveAdmin.register Item do
   permit_params :name, :description, :amount, :currency
-  menu parent: 'Rozarpay Payment', priority: 1
+  menu false #parent: 'Rozarpay Payment', priority: 1
 
   action_item :only=>:index do
     render :partial => "form"

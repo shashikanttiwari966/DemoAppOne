@@ -1,0 +1,173 @@
+<div class="container">
+  <div class="title">
+    <h2>Product Order Form</h2>
+  </div>
+<%= form_for @order do |f|%>
+  <div class="row">
+    <div class="col-sm-8 pt-5">
+      <div class="image text-center">
+        <%= image_tag @product.images.first.service_url, class:"product-image img-thumbnail"%>
+      </div>
+      <%= f.hidden_field :product_id, value:"#{@product.id}"%>
+      <label>
+        <span>Street Address <span class="required">*</span></span>
+         <%= f.text_area :address, placeholder:"House number and street name", class:"form-control"%>
+      </label>
+
+      <label>
+        <span>Postcode / ZIP <span class="required">*</span></span>
+         <%= f.text_field :pin_code, placeholder:"i.e 452001", class:"form-control"%>
+      </label>
+      <label>
+        <span>Email Address <span class="required">*</span></span>
+        <%= f.text_field :email, value:"#{current_admin_user.email}", class:"form-control", disabled: true%>
+      </label>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="Yorder">
+        <table>
+          <tr>
+            <th colspan="2">Your order</th>
+          </tr>
+          <tr>
+            <td>Product Name x 2(Qty)</td>
+            <td>₹<%= @product.price %>.00</td>
+          </tr>
+          <tr>
+            <td>Subtotal</td>
+            <td>₹<%= @product.price %>.00</td>
+          </tr>
+          <tr>
+            <td>Shipping</td>
+            <td>Free shipping</td>
+          </tr>
+        </table><br>
+        <div class="form-check pl-4">
+          <%= f.radio_button :payment_mode,"cash_on_delivery", :class => "form-check-input"%> Cash on Delivery
+        </div>
+        <div class="form-check pl-4">
+          <%= f.radio_button :payment_mode,"online_payment", :class => "form-check-input"%> Online Payment <span>
+          </span>
+        </div>
+        <%= f.submit "Place Order", class:"w-100 mt-5"%>
+      </div>
+    </div>
+   </div>
+  </div>
+<%end%>
+
+<style type="text/css">
+  .product-image{
+    height: 225px;
+  }
+  @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+.container{
+  width: 100%;
+  padding: 0 !important;
+  margin-right: auto;
+  margin-left: auto;
+  height: auto;
+}
+@media (min-width: 1200px)
+{
+  .container{
+    max-width: 1140px;
+  }
+}
+form{
+  flex: 4;
+}
+.Yorder{
+  flex: 2;
+}
+.title{
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #5195A8), color-stop(100, #70EAFF));
+  background: -moz-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+  background: -ms-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+  background: -o-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+  background: linear-gradient(to bottom right, #5195A8 0%, #70EAFF 100%);
+  border-radius:5px 5px 0 0 ;
+  padding: 20px;
+  color: #f6f6f6;
+}
+h2{
+  margin: 0;
+  padding-left: 15px; 
+}
+.required{
+  color: red;
+}
+label, table{
+  display: block;
+  margin: 15px;
+}
+label>span{
+  float: left;
+  width: 25%;
+  margin-top: 12px;
+  padding-right: 10px;
+}
+textarea, input[type="text"], input[type="email"], select
+{
+  width: 70% !important;
+}
+select{
+  width: 72%;
+  height: 45px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+.Yorder{
+  margin-top: 15px;
+  height: 600px;
+  padding: 20px;
+  border: 1px solid #dadada;
+}
+table{
+  margin: 0;
+  padding: 0;
+}
+th{
+  border-bottom: 1px solid #dadada;
+  padding: 10px 0;
+}
+tr>td:nth-child(1){
+  text-align: left;
+  color: #2d2d2a;
+}
+tr>td:nth-child(2){
+  text-align: right;
+  color: #52ad9c;
+}
+td{
+  border-bottom: 1px solid #dadada;
+  padding: 25px 25px 25px 0;
+}
+
+p{
+  display: block;
+  color: #888;
+  margin: 0;
+  padding-left: 25px;
+}
+.Yorder>div{
+  padding: 15px 0; 
+}
+
+button{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  background: #52ad9c;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+}
+button:hover{
+  cursor: pointer;
+  background: #428a7d;
+}
+</style>

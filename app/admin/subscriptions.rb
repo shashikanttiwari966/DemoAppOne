@@ -1,7 +1,7 @@
 ActiveAdmin.register Subscription do
 
   permit_params :admin_user_id, :subscription_id, :product_id, :subscribed_at, :unsubscribed_at, :status
-  menu parent: 'Stripe Payment', priority: 4
+  menu parent: 'Stripe Payment', priority: 4, label: "<i class='fas fa-tasks'></i>Subscription".html_safe
   config.filters = false
   
   index do
@@ -14,7 +14,7 @@ ActiveAdmin.register Subscription do
     column :unsubscribed_at
     column :status
     column :subscription_id
-    column :product_id
+    # column :product_id 
     actions do |subs|
       link_to "Unsubscribe", unsubscription_stripe_payments_path(id:subs.subscription_id), method: :post, class:"unsubscription"  unless current_admin_user.admin?
     end

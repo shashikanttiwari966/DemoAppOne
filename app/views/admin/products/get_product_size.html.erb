@@ -1,0 +1,5 @@
+<select name="product[product_sizings_attributes][0][product_size_id]" id="product_product_sizings_attributes_0_product_size_id" data-tags="false">
+<% @product_size.each do |size, value|%>
+  <option value="<%= size %>"><%= value %></option>
+<%end%>
+</select>

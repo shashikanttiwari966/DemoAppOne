@@ -13,7 +13,11 @@ class Ability
 
     # NOTE: Everyone can read the page of Permission Deny
     can :read, ActiveAdmin::Page, name: "Dashboard"
+    can :read, ActiveAdmin::Page, name: "AboutUs"
+    # can :read, ProductSize
+    # can :read, Category
     can :read, Product
+    can :read, Order
     can :read, Plan
     can :read, Subscription
     can :read, Charge
@@ -22,5 +26,6 @@ class Ability
     can :read, Item
     can :read, RozarpayPlan
     can :read, RozarpaySubscription
+    can :manage, Conversation
   end
 end

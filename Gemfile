@@ -19,7 +19,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -59,7 +59,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'activeadmin'
 gem 'active_admin_role'
-gem 'active_admin_theme'
+# gem 'active_admin_theme'
+gem 'arctic_admin'
 gem 'activeadmin_addons'
 gem 'razorpay'
 gem 'stripe-rails'
@@ -71,3 +72,13 @@ gem "chartkick"
 gem "groupdate"
 gem "noticed"
 gem "cable_ready", "~> 4.5"
+gem 'cloudinary'
+gem 'sidekiq'
+gem "sidekiq-cron"
+gem 'twilio-ruby'
+gem 'bootstrap-sass'
+gem 'activeadmin-chat'
+gem 'rails_emoji_picker'
+gem "rqrcode"
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'

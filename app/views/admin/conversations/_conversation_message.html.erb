@@ -1,0 +1,55 @@
+<div class="header-chat">
+  <i class="icon fa fa-user-o" aria-hidden="true"></i>
+  <p class="name">
+    <%= get_friend_user(conversation, current_admin_user.id).email%>
+  </p>
+  <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
+  <div style="margin: 5px 20px;">
+    <% status = online_status get_friend_user(conversation, current_admin_user.id) %>
+    <%= status.split("online_status").second.split("\"></div>").first.strip %>
+  </div>
+</div>
+<div class="messages-chat" id="<%= conversation.id%>">
+  <% conversation.messages.group_by { |mess| mess.created_at.strftime("%d %B %Y") }.each do |date, con_message| %>
+    <center><p class="top-chat-time"><%= date.eql?(Time.now.strftime("%d %B %Y")) ? "Today" : date %></p></center>
+    <%con_message.each do |message|%>
+      <% if !message.admin_user_id.eql?(current_admin_user.id)%>
+        <div class="message" id="message_<%= message.id %>">
+          <div class="photo" style="background-image: url(<%= get_friend_user(conversation, current_admin_user.id).image.service_url%>);">
+            <!-- <div class="online"></div> -->
+            <%= online_status get_friend_user(conversation, current_admin_user.id) %>
+          </div>
+          <p class="text"><%= message.body%> </p>
+        </div>
+        <p class="time"><%= message.created_at.strftime("%Hh%M")%></p>
+      <%else%>
+        <div class="message text-only" id="message_<%= message.id %>">
+          <div class="response">
+            <p class="text"> <%= message.body%></p>
+          </div>
+        </div>
+        <p class="response-time time"><%= message.created_at.strftime("%Hh%M")%></p>
+      <%end%>
+    <%end%>
+  <%end%>
+</div>
+<div class="footer-chat">
+  <%= form_tag "/admin/conversations/create_message", method: :post, remote: true do%>
+    <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
+    <%= hidden_field_tag :receiver_id, conversation.friend_id%>
+    <%= hidden_field_tag :conversation_id, conversation.id%>
+    <%= hidden_field_tag :receiver_image, current_admin_user.image.service_url%>
+    <p class="emoji-picker-container">
+    <%= text_field_tag :body,"",class:"write-message emoji-picker-container", placeholder:"Type your message here", data: { emojiable: true }, required: 'required'%>
+    </p>
+    <%= submit_tag "Send", class:"icon send fa fa-paper-plane-o clickable"%>
+    <!-- <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true">Send</i> -->
+  <%end%>
+</div>
+
+<script type="text/javascript">
+  $(".send").click(function(){
+   $(".write-message").text("")
+  })
+</script>
+

@@ -1,4 +1,5 @@
 ActiveAdmin.register AdminUser do
+  menu priority: 4, label: "<i class='fas fa-users'></i>AdminUser".html_safe
   role_changeable
   permit_params :email, :password, :password_confirmation, :role, :image
 

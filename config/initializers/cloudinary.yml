@@ -1,0 +1,6 @@
+development:
+ cloud_name: djv8chasu
+ api_key: '241455692921719'
+ api_secret: AYNVn062bYkTT0aXXm1RNJI_Zx0
+ enhance_image_tag: 'true'
+ static_file_support: 'false'

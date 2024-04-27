@@ -4,7 +4,11 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Demo App"
+  config.site_title = "Demo App One"
+
+  meta_tags_options = { viewport: 'width=device-width, initial-scale=1' }
+  config.meta_tags = meta_tags_options
+  config.meta_tags_for_logged_out_pages = meta_tags_options
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -210,6 +214,9 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
   #   config.register_stylesheet 'my_stylesheet.css'
+  config.register_javascript "https://unpkg.com/slim-select@latest/dist/slimselect.min.js"
+  config.register_stylesheet "https://unpkg.com/slim-select@latest/dist/slimselect.css"
+  config.register_stylesheet 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'
   #
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
@@ -233,19 +240,19 @@ ActiveAdmin.setup do |config|
   #
     config.namespace :admin do |admin|
       # admin.build_menu :utility_navigation do |menu|
+      #   menu.add  :label  => proc{ display_name current_admin_user.cart.line_items.count },
+      #             :url    =>  proc{  "/carts/show_cart" },
+      #             :id     => 'cart',
+      #             :if     => proc{ current_active_admin_user? }
+      #   menu.add :label  => proc{ display_name current_admin_user.notifications.where(read_at: nil).count },
+      #             :url    =>  proc{  "/notifications/index" },
+      #             :id     => 'notification',
+      #             :if     => proc{ current_active_admin_user? }
       #   menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
       #   admin.add_logout_button_to_menu menu
       # end
-      admin.build_menu do |menu|
-        menu.add  :label  => proc{ display_name current_admin_user.cart.line_items.count },
-                  :url    =>  proc{  "#{ENV['BASE_URL']}/carts/show_cart" },
-                  :id     => 'cart',
-                  :if     => proc{ current_active_admin_user? }
-        menu.add :label  => proc{ display_name current_admin_user.notifications.where(read_at: nil).count },
-                  :url    =>  proc{  "#{ENV['BASE_URL']}/notifications/index" },
-                  :id     => 'notification',
-                  :if     => proc{ current_active_admin_user? }
-      end
+      # admin.build_menu do |menu|
+      # end
     end
   #
   # If you wanted to add a static menu item to the default menu provided:

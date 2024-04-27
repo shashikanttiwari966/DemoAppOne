@@ -1,7 +1,8 @@
 ActiveAdmin.register Plan do
   permit_params :name, :plan_id, :duration, :price, :description, :image
-  menu parent: 'Stripe Payment', priority: 1
+  menu parent: 'Stripe Payment', priority: 1, label: "<i class='fas fa-info'></i>Plan".html_safe
   filter :name
+  filter :created_at_gteq, label:"Created At", as: :select, collection: [['Day', Time.now.beginning_of_day], ['Week', 1.week.ago.beginning_of_day], ['Month', 1.month.ago.beginning_of_day], ['Year', 1.year.ago.beginning_of_day]]
 
   index do |plan|
     # render partial: 'stripe_plans', locals:{context: self}
@@ -39,5 +40,4 @@ ActiveAdmin.register Plan do
     end
     f.actions
   end
-  
 end

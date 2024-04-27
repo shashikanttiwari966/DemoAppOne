@@ -1,18 +1,20 @@
-<h1 style="display: inline-block; font-weight: 600;">Notifications</h1>
-<button type="button" class="close">
-  <span aria-hidden="true">&times;</span>
-</button>
+<div class="notification-header">
+  <h1 style="display: inline-block; font-weight: 600;">Notifications</h1>
+  <button type="button" class="close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <main>
   <div class="notification-container">
     <% @notifications.each do |notification| %>
       <% instance = notification.to_notification %>
         <p class="notification_new <% notification.read_at.present? ? 'read' : 'unread' %>"> 
-          <span class="notification-left"><%= notification.message %>
+          <span class="notification-left"><%= notification.params[:message] %>
           </span>
           <span class="notification-right">
             <span style="float: right;">
               <small><i><%= notification_time(notification)%></i></small>
-              <button onclick="location.href='<%= ENV['BASE_URL']%>/notifications/<%= notification.id %>'" type="button" class="notification-view">view</button>
+              <button onclick="location.href='/notifications/<%= notification.id %>'" type="button" class="notification-view">view</button>
             </span>
           </span>
         </p> 
@@ -29,12 +31,15 @@
 
 
 <style type="text/css">
+  main{
+    padding: 0px 10px;
+  }
   .close{
     padding: 0;
     border: none;
     background: none;
     font-size: 35px;
-    margin-left: 220px;
+    margin-left: 205px;
     cursor: pointer;
   }
 
@@ -60,17 +65,32 @@
   .notification_new{
     background: #bbdbe7 !important;
     padding: 2px 10px !important;
-    height: 28px !important;
+    height: auto !important;
+    overflow: hidden;
     border-radius: 2px !important;
   }
 
   .notification-left{
-    width: 65%;
+    word-wrap: break-word;
+    width: 63%;
     float: left;
   }
 
   .notification-right{
-    width: 35%;
-    float: right;
+    /*width: 37%;
+    float: right;*/
+  }
+
+  .notification-list::-webkit-scrollbar {
+    width: 0.8em;
+  }
+   
+  .notification-list::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+   
+  .notification-list::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 0px solid slategrey;
   }
 </style>

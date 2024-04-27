@@ -1,0 +1,62 @@
+<body>
+  <div class="container">
+    <div class="row">
+      <!-- <nav class="menu">
+        <ul class="items">
+          <li class="item">
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </li>
+          <li class="item">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </li>
+          <li class="item">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </li>
+          <li class="item item-active">
+            <i class="fa fa-commenting" aria-hidden="true"></i>
+          </li>
+          <li class="item">
+            <i class="fa fa-file" aria-hidden="true"></i>
+          </li>
+          <li class="item">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+          </li>
+        </ul>
+      </nav> -->
+
+      <section class="discussions">
+        <div class="discussion search">
+          <div class="searchbar">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="text" placeholder="Search..."></input>
+          </div>
+        </div>
+        <% @conversations.each_with_index do |conversation, index|%>
+          <%= link_to admin_conversations_path(convertion_id: conversation.id), style:"text-decoration: none;" do %>
+            <div class="discussion  <%= @conversation.id.eql?(conversation.id) ? "message-active" : ""%>">
+              <div class="photo" style="background-image: url(<%= get_friend_user(conversation, current_admin_user.id).image.service_url%>);">
+                <!-- <div class="online" id="<%= current_admin_user %>"> -->
+                  <%= online_status get_friend_user(conversation, current_admin_user.id) %>
+                <!-- </div> -->
+              </div>
+              <div class="desc-contact">
+                <p class="name"><%= get_friend_user(conversation, current_admin_user.id).email %></p>
+                <p class="message" id="mess_<%= conversation.id%>"><%= last_message(conversation)%></p>
+              </div>
+              <div class="timer" id="time_<%= conversation.id%>"><%= message_time(conversation)%></div>
+            </div>
+          <%end%>
+        <%end%>
+      </section>
+      <section class="chat">
+        <%= render "conversation_message", conversation: @conversation%>
+      </section>
+    </div>
+  </div>
+</body>
+
+<style type="text/css">
+  .pagination_information{
+    display: none;
+  }
+</style>

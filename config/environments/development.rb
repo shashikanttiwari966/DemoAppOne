@@ -31,7 +31,8 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+    config.active_storage.service = :cloudinary
+  # config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -70,7 +71,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
+  config.hosts << "5a66-103-106-31-11.ngrok-free.app"
   # config.hosts << "e954-2401-4900-1ca3-a379-d0f4-8b8d-6cf5-898c.in.ngrok.io"
 
   # config.action_mailer.delivery_method = :letter_opener
@@ -90,5 +91,8 @@ Rails.application.configure do
   }
 
   # Uncomment if you wish to allow Action Cable access from any origin.
+  # config.action_cable.allowed_request_origins = ['http://localhost:3000']
   # config.action_cable.disable_request_forgery_protection = true
+  # config.action_cable.mount_path = nil
+  config.action_cable.url = "ws://localhost:3000/cable"
 end

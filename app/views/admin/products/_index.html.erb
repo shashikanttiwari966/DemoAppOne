@@ -1,3 +1,7 @@
+<!-- For categories -->
+<%if params[:scope].eql?("groceries")%>
+  <%= render 'admin/products/category'%>
+<%else%>
 <!-- @items -->
 <div class="container page-wrapper">
   <div class="page-inner">
@@ -13,8 +17,14 @@
                 <span class="p-company stock" id="<%= product.stock%>">
                   In Stock: <%= product.stock%>
                 </span>
+                <span class="p-company product-color">
+                  <strong>Available colors :</strong> 
+                  <%= product.product_colors.map{|color| "<span style='background: #{color.code}' class='color-code'></span>"}.join(" ").html_safe %>
+                </span>
               </div>
-              <div class="a-size">Available sizes : <span class="size">S , M , L , XL</span></div>
+              <div class="a-size">Available sizes : 
+                <span class="size"><%= get_product_sizings(product) %></span>
+              </div>
             </div>
           </div>
 
@@ -34,7 +44,7 @@
     </div>
   </div>
 </div>
-
+<%end%>
 <script>
   $(document).ready(function(){
     // $('#cart').find('a').html("<%= @current_cart.line_items.count %>")
@@ -269,7 +279,6 @@ body {
   color: #828282;
   opacity: 0;
 }
-
 .a-size .size {
   color: #252525;
 }
@@ -342,5 +351,16 @@ body {
   text-transform: uppercase;
   white-space: nowrap;
 }
+.color-code{
+  width: 20px;
+  display: inline-block;
+  border: 2px solid gray;
+  height: 20px;
+  border-radius: 50px;
+/*  margin-left: 8px;*/
+}
 
+.product-color{
+  margin: 20px;
+}
 </style>

@@ -1,7 +1,7 @@
 ActiveAdmin.register RozarpayPlan do
 
   permit_params :name, :description, :amount, :currency, :period, :plan_id
-  menu parent: 'Rozarpay Payment', priority: 2
+  menu false #parent: 'Rozarpay Payment', priority: 2
 
   filter :name
 

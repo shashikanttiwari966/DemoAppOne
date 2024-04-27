@@ -38,7 +38,7 @@
           </div>
         <div class="card-child-action">
           <div class="cart-action">
-            <%= button_to line_item_add_path(:id => line_item), method: :post do %>
+            <%= button_to line_item_add_path(:id => line_item), method: :post, class:"plus" do %>
                <i class="fa fa-plus fa-common"></i>
             <%end%>
           </div>
@@ -46,12 +46,12 @@
             <%= line_item.quantity %>
           </div>
           <div class="cart-action">
-            <%= button_to line_item_reduce_path(:id => line_item), method: :post do %>
+            <%= button_to line_item_reduce_path(:id => line_item), method: :post, class:"minus" do %>
               <i class="fa fa-minus fa-common"></i>
             <%end%>
           </div>
           <div class="cart-action">
-            <%= button_to stripe_payments_path(product_id: line_item.product.id, quantity: line_item.quantity), method: :post do %>
+            <%= button_to stripe_payments_path(product_id: line_item.product.id, quantity: line_item.quantity), method: :post, class: "paypal" do %>
               <i class="fa fa-paypal fa-common"></i>
             <%end%>
           </div>

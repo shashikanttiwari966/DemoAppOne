@@ -14,6 +14,14 @@ class AdminUser < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_one_attached :image
 
+  #order
+  has_many :orders, dependent: :destroy
+
+  #conversation
+  has_many :conversations, class_name: "Conversation", foreign_key: "admin_user_id", dependent: :destroy
+  has_many :friend_conversations, class_name: "Conversation", foreign_key: "friend_id", dependent: :destroy
+  has_many :messages, class_name: "Message", dependent: :destroy
+
   has_many :rozarpay_subscriptions
 
   # after_update do
@@ -24,22 +32,28 @@ class AdminUser < ApplicationRecord
   #   end
   # end
 
+  def online?
+    !Redis.new.get("user_#{self.id}_online").nil?
+  end
+
   after_create do
-    customer = Razorpay::Customer.create({
-      "email": self.email,
-    }) || ""
+    unless self.admin?
+      customer = Razorpay::Customer.create({
+        "email": self.email,
+      }) || ""
 
-    stripe_customer = Stripe::Customer.create({
-      "email": self.email,
-    }) || ""
+      stripe_customer = Stripe::Customer.create({
+        "email": self.email,
+      }) || ""
 
-    self.customer_stripe_id = stripe_customer.id
-    self.customer_id = customer.id
-    self.save
-    begin
-      UserMailer.with(user: self, password: self.password).welcome_email.deliver
-    rescue StandardError => e
-     puts e
+      self.customer_stripe_id = stripe_customer.id
+      self.customer_id = customer.id
+      self.save
+      begin
+        UserMailer.with(user: self, password: self.password).welcome_email.deliver
+      rescue StandardError => e
+       puts e
+      end
     end
   end
 end

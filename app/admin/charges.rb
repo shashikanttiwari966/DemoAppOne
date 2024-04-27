@@ -1,7 +1,7 @@
 ActiveAdmin.register Charge do
 
   permit_params :stripe_charge_id, :product_id, :admin_user_id, :amount, :status
-  menu parent: 'Stripe Payment', priority: 2
+  menu parent: 'Stripe Payment', priority: 2, label: "<i class='fas fa-rupee-sign'></i>Charge".html_safe
 
   collection_action :update_charge, method: :put
   index do
@@ -32,7 +32,6 @@ ActiveAdmin.register Charge do
       end
 
       def update
-        debugger
         super
       end
     end
